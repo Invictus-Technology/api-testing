@@ -1,0 +1,30 @@
+import requests
+
+
+api_key = "7c59aad528b62ba0be780ef5d0a2ffb1"  
+
+
+base_url = "http://api.weatherapi.com/v1/current.json"
+
+
+location = "London"
+
+
+params = {
+    "key": api_key,
+    "q": location,
+    "aqi": "no"  
+}
+
+
+response = requests.get(base_url, params=params)
+
+
+if response.status_code == 200:
+    data = response.json()
+    print("Weather in", data['location']['name'])
+    print("Temperature (C):", data['current']['temp_c'])
+    print("Condition:", data['current']['condition']['text'])
+else:
+    print("Failed to get data:", response.status_code)
+    print(response.text)
